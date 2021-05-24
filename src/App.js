@@ -4,6 +4,8 @@ import Footer from './Components/Footer/Footer';
 import Home from './Components/Home/Home';
 import Login from './Components/Login/Login';
 import Navbar from './Components/Navbar/Navbar';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import Register from './Components/Register/Register';
 
 const App = () => {
   return (
@@ -17,7 +19,8 @@ const App = () => {
     </h1> */}
         {/* <Home /> */}
 
-        <Login />
+        {/* <Login /> */}
+        <Register />
       </main>
       <Footer />
     </>
