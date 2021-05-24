@@ -15,9 +15,9 @@ const App = () => {
         {/* <h1>
           Learning Videos
     </h1> */}
-        <Home />
+        {/* <Home /> */}
 
-        {/* <Login /> */}
+        <Login />
       </main>
       <Footer />
     </>
