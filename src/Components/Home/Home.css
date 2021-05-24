@@ -1,0 +1,10 @@
+.videosWrapper {
+    padding: 1% 2%;
+}
+
+.cardWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    position: relative;
+}
