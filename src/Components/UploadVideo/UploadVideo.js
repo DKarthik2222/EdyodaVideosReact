@@ -1,14 +1,11 @@
 import React, { useRef } from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {Link} from 'react-router-dom'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,50 +28,38 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Register = () => {
-    const firstName = useRef('')
-    const lastName = useRef('')
-    const email = useRef('')
-    const contact = useRef('')
-    const password = useRef('')
+const UploadVideo = () => {
+    const title = useRef('')
+    const description = useRef('')
+    const duration = useRef('')
+    const vimeo = useRef('')
+    const thumbnail = useRef('')
     const classes = useStyles();
-    const printData = e => {
+    const upload = e => {
         e.preventDefault();
-        console.log(firstName.current.value)
-        console.log(lastName.current.value)
-        console.log(email.current.value)
-        console.log(contact.current.value)
-        console.log(password.current.value)
+        console.log(title.current.value)
+        console.log(description.current.value)
+        console.log(duration.current.value)
+        console.log(vimeo.current.value)
+        console.log(thumbnail.current.value)
     }
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign up
-        </Typography>
-                <form className={classes.form} onSubmit={printData} autoComplete='off'>
+                    Upload Video
+                </Typography>
+                <form className={classes.form} onSubmit={upload} autoComplete='off'>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12}>
                             <TextField
                                 variant="outlined"
                                 required
                                 fullWidth
-                                label="First Name"
+                                label="Video Title"
                                 autoFocus
-                                inputRef={firstName}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                label="Last Name"
-                                inputRef={lastName}
+                                inputRef={title}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -82,9 +67,8 @@ const Register = () => {
                                 variant="outlined"
                                 required
                                 fullWidth
-                                label="Email Address"
-                                type="email"
-                                inputRef={email}
+                                label="Video Description"
+                                inputRef={description}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -92,13 +76,8 @@ const Register = () => {
                                 variant="outlined"
                                 required
                                 fullWidth
-                                label="Contact no."
-                                type="number"
-                                placeholder="Enter 10 digit contact number"
-                                onInput={(e) => {
-                                    e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 10)
-                                }}
-                                inputRef={contact}
+                                label="Video Duration"
+                                inputRef={duration}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -106,9 +85,19 @@ const Register = () => {
                                 variant="outlined"
                                 required
                                 fullWidth
-                                label="Password"
-                                type="password"
-                                inputRef={password}
+                                label="Video’s Vimeo URL"
+                                type="url"
+                                inputRef={vimeo}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                label="Thumbnail URL"
+                                type="url"
+                                inputRef={thumbnail}
                             />
                         </Grid>
                     </Grid>
@@ -119,18 +108,11 @@ const Register = () => {
                         color="primary"
                         className={classes.submit}
                     >
-                        Sign Up
-          </Button>
-                    <Grid container justify="flex-end">
-                        <Grid item>
-                        <Link to='/' >
-                                Already have an account? Sign in
-              </Link>
-                        </Grid>
-                    </Grid>
+                        Upload
+                    </Button>
                 </form>
             </div>
         </Container>
     );
 }
-export default Register;
+export default UploadVideo;

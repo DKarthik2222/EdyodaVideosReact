@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Card.css'
 const Card = (props) => {
-    console.log(props)
     //     description: "this is a react video"
     // duration: "5:00"
     // likes: "143"
@@ -13,7 +13,7 @@ const Card = (props) => {
     const { description, author, duration, likes, thumbnail_url, title, video_url, views } = props.prop;
     return (
         <>
-            <a className="cardAnchor" >
+            <Link to="/home?{1}" className="cardAnchor" >
                 <div className="cardItem">
                     <div className="thumbnailContainer">
                         <img className="videoThumbnail" src={thumbnail_url} alt="video thumbnail" />
@@ -41,7 +41,7 @@ const Card = (props) => {
                         </div>
                     </div>
                 </div>
-            </a>
+            </Link>
         </>
     );
 }
