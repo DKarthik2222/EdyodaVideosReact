@@ -37,6 +37,7 @@ const Watch = () => {
     } else {
         return (
             <>
+                <div className="Heading"><h1>Learning Videos</h1></div>
                 <div className="mainContainer">
                     <div className="videoSection">
                         <div className="videoWrapper">
@@ -68,7 +69,7 @@ const Watch = () => {
                         {items.map(item => {
                             return (<div>
                                 <Card prop={item} />
-                                <hr className="sep"/>
+                                <hr className="sep" />
                             </div>)
                         })}
                     </div>
