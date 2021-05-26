@@ -41,7 +41,6 @@ const Profile = () => {
     useEffect(() => {
         setIsLoaded(true);
         const data= getUser();
-        console.log(data);
     }, []);
     if (!isLoaded) {
         return <div>

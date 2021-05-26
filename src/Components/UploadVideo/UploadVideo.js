@@ -37,6 +37,7 @@ const UploadVideo = () => {
     const classes = useStyles();
     const upload = e => {
         e.preventDefault();
+        const _id = "V"+new Date().getTime();; 
         console.log(title.current.value)
         console.log(description.current.value)
         console.log(duration.current.value)
