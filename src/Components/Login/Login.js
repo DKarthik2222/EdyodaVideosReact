@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, {useRef, useState  } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,8 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom'
-import { User } from '../../CommonResource/Common';
-
+import axios from 'axios';
+import { setUser, baseUrl } from '../../CommonResource/Common';
+import { useHistory } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -35,11 +36,27 @@ const Login = () => {
     const classes = useStyles();
     const email = useRef('')
     const password = useRef('')
+    const [warning, setWarning] = useState("");
+    const history = useHistory();
     const checkDetails = e => {
         e.preventDefault();
-        console.log(User().id);
-        console.log(email.current.value)
-        console.log(password.current.value)
+        axios.get(`${baseUrl}/findAllUsers/${email.current.value}`)
+        .then((res) => {
+            if(res.data && res.status===200){
+                if(res.data._id === email.current.value && res.data.password === password.current.value){
+                    setWarning("");
+                    setUser(res.data);
+                    let path = `home`; 
+                    history.push(path);
+                }
+                else{
+                    setWarning("Incorrect credentials");
+                }
+            }
+            else{
+                setWarning("No user. Please signup");
+            }
+        });
     }
     return (
         <Container component="main" maxWidth="xs">
@@ -71,6 +88,7 @@ const Login = () => {
                         type="password"
                         inputRef={password}
                     />
+                    <p style={{position: "absolute", color: "red", transform: "translatey(-10px)"}}>{warning}</p>
                     <Button
                         type="submit"
                         fullWidth

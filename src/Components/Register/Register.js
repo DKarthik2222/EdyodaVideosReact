@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,7 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Link} from 'react-router-dom'
-
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
+import { baseUrl } from '../../CommonResource/Common';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -38,13 +40,40 @@ const Register = () => {
     const contact = useRef('')
     const password = useRef('')
     const classes = useStyles();
-    const printData = e => {
+    const history = useHistory();
+    const [warning, setWarning] = useState("");
+    const registerUser = e => {
         e.preventDefault();
-        console.log(firstName.current.value)
-        console.log(lastName.current.value)
-        console.log(email.current.value)
-        console.log(contact.current.value)
-        console.log(password.current.value)
+        axios.get(`${baseUrl}/findAllUsers/${email.current.value}`)
+        .then((res) => {
+            if(res.data && res.status===200){
+                setWarning("User already exists. Please login");
+            }
+            else{
+                axios({
+                    method: 'post',
+                    url: `${baseUrl}/addUser`,
+                    data: {
+                        _id: email.current.value,
+                        fullName: firstName.current.value,
+                        userName: lastName.current.value,
+                        phNum: contact.current.value,
+                        password: password.current.value,
+                        videos_watched: [],
+                        subscribed: []
+                    }
+                  }).then(response=>{
+                      if(response.data && res.status===200){
+                        setWarning("");
+                        let path = ``; 
+                        history.push(path);
+                      }
+                      else{
+                        setWarning("Someting went wrong. Try again later.");
+                      }
+                  })    
+            }
+        });
     }
     return (
         <Container component="main" maxWidth="xs">
@@ -56,7 +85,7 @@ const Register = () => {
                 <Typography component="h1" variant="h5">
                     Sign up
         </Typography>
-                <form className={classes.form} onSubmit={printData} autoComplete='off'>
+                <form className={classes.form} onSubmit={registerUser} autoComplete='off'>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField
@@ -112,6 +141,7 @@ const Register = () => {
                             />
                         </Grid>
                     </Grid>
+                    <p style={{position: "absolute", color: "red", transform: "translatey(-10px)"}}>{warning}</p>
                     <Button
                         type="submit"
                         fullWidth
