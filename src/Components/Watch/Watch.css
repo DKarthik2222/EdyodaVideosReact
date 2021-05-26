@@ -5,6 +5,12 @@
     display: flex;
 }
 
+.Heading {
+    width: 100%;
+    background-color: #15294B;
+    color: #fff;
+}
+
 .videoSection {
     width: 60%;
     padding-bottom: 5rem;
