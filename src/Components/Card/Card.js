@@ -28,7 +28,7 @@ const Card = (props) => {
                             {title}<wbr />...
                         </h3>
                         <div className="videoOwnerData">
-                            <div className="videoMetaDataSection">{author}
+                            <div className="videoMetaDataSection"><span>{author}</span>
                                 <span className="separator"> |</span>
                                 <span>{likes} likes</span>
                                 <span className="separator"> |</span> <span>{views} views</span>
