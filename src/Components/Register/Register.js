@@ -8,8 +8,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from 'axios';
+import MenuItem from '@material-ui/core/MenuItem';
 import { useHistory } from "react-router-dom";
 import { baseUrl } from '../../CommonResource/Common';
 
@@ -39,41 +40,44 @@ const Register = () => {
     const email = useRef('')
     const contact = useRef('')
     const password = useRef('')
+    const role = useRef('')
     const classes = useStyles();
     const history = useHistory();
     const [warning, setWarning] = useState("");
     const registerUser = e => {
         e.preventDefault();
         axios.get(`${baseUrl}/findAllUsers/${email.current.value}`)
-        .then((res) => {
-            if(res.data && res.status===200){
-                setWarning("User already exists. Please login");
-            }
-            else{
-                axios({
-                    method: 'post',
-                    url: `${baseUrl}/addUser`,
-                    data: {
-                        _id: email.current.value,
-                        fullName: firstName.current.value,
-                        userName: lastName.current.value,
-                        phNum: contact.current.value,
-                        password: password.current.value,
-                        videos_watched: [],
-                        subscribed: []
-                    }
-                  }).then(response=>{
-                      if(response.data && res.status===200){
-                        setWarning("");
-                        let path = ``; 
-                        history.push(path);
-                      }
-                      else{
-                        setWarning("Someting went wrong. Try again later.");
-                      }
-                  })    
-            }
-        });
+            .then((res) => {
+                if (res.data && res.status === 200) {
+                    setWarning("User already exists. Please login");
+                }
+                else {
+                    axios({
+                        method: 'post',
+                        url: `${baseUrl}/addUser`,
+                        data: {
+                            _id: email.current.value,
+                            fullName: firstName.current.value,
+                            userName: lastName.current.value,
+                            phNum: contact.current.value,
+                            password: password.current.value,
+                            role: role.current.value,
+                            videos_watched: [],
+                            subscribed: []
+                        }
+                    }).then(response => {
+                        console.log(response.data)
+                        if (response.data && res.status === 200) {
+                            setWarning("");
+                            let path = ``;
+                            history.push(path);
+                        }
+                        else {
+                            setWarning("Someting went wrong. Try again later.");
+                        }
+                    })
+                }
+            });
     }
     return (
         <Container component="main" maxWidth="xs">
@@ -140,8 +144,25 @@ const Register = () => {
                                 inputRef={password}
                             />
                         </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                select
+                                label="Role"
+                                fullWidth
+                                required
+                                inputRef={role}
+                                helperText="Please select your Role"
+                            >
+                                <MenuItem key="Educator" value="Educator">
+                                    Educator
+                                </MenuItem>
+                                <MenuItem key="Learner" value="Learner">
+                                    Learner
+                                </MenuItem>
+                            </TextField>
+                        </Grid>
                     </Grid>
-                    <p style={{position: "absolute", color: "red", transform: "translatey(-10px)"}}>{warning}</p>
+                    <p style={{ position: "absolute", color: "red", transform: "translatey(-10px)" }}>{warning}</p>
                     <Button
                         type="submit"
                         fullWidth
@@ -153,7 +174,7 @@ const Register = () => {
           </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                        <Link to='/' >
+                            <Link to='/' >
                                 Already have an account? Sign in
               </Link>
                         </Grid>

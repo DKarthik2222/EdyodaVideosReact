@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -10,6 +10,9 @@ import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import SubscriptionsIcon from '@material-ui/icons/Subscriptions';
 import CustomizedDialogs from '../Utils/Modal';
 import SimpleList from '../Utils/List';
+import Loader from '../../Assets/loader.svg'
+import { getUser } from '../../CommonResource/Common';
+
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
@@ -33,39 +36,52 @@ const useStyles = makeStyles({
 });
 const Profile = () => {
     const classes = useStyles();
-    return (
-        <Card className={classes.root}>
-            <CardContent>
-                <Typography className={classes.title} color="textPrimary" gutterBottom>
-                    User Profile<CustomizedDialogs prop="Register" />
-                </Typography>
-                <Typography className={classes.key} color="textPrimary" gutterBottom>
-                    <PersonIcon className={classes.icon} /> Full Name:
-                </Typography>
-                <Typography className={classes.key} color="textPrimary" gutterBottom>
-                    <EmailIcon className={classes.icon} /> Email:
-                </Typography>
-                <Typography className={classes.key} color="textPrimary" gutterBottom>
-                    <PhoneIcon className={classes.icon} /> Contact Number:
-                </Typography>
-                <Typography >
+    const [isLoaded, setIsLoaded] = useState(false);
 
+    useEffect(() => {
+        setIsLoaded(true);
+        const data= getUser();
+        console.log(data);
+    }, []);
+    if (!isLoaded) {
+        return <div>
+            <img className="loader" src={Loader} />
+        </div>;
+    } else {
+        return (
+            <Card className={classes.root}>
+                <CardContent>
+                    <Typography className={classes.title} color="textPrimary" gutterBottom>
+                        User Profile<CustomizedDialogs prop="Register" />
+                    </Typography>
+                    <Typography className={classes.key} color="textPrimary" gutterBottom>
+                        <PersonIcon className={classes.icon} /> Full Name:
                 </Typography>
-                <Typography className={classes.key} color="textPrimary" gutterBottom>
-                    <VideoLibraryIcon className={classes.icon} /> Videos Watched
+                    <Typography className={classes.key} color="textPrimary" gutterBottom>
+                        <EmailIcon className={classes.icon} /> Email: 
+                    </Typography>
+                    <Typography className={classes.key} color="textPrimary" gutterBottom>
+                        <PhoneIcon className={classes.icon} /> Contact Number:
                 </Typography>
-                <Typography >
-                    <SimpleList />
+                    <Typography >
+
+                    </Typography>
+                    <Typography className={classes.key} color="textPrimary" gutterBottom>
+                        <VideoLibraryIcon className={classes.icon} /> Videos Watched
                 </Typography>
-                <Typography className={classes.key} color="textPrimary" gutterBottom>
-                    <SubscriptionsIcon className={classes.icon} /> Channel Subscribed
+                    <Typography >
+                        <SimpleList />
+                    </Typography>
+                    <Typography className={classes.key} color="textPrimary" gutterBottom>
+                        <SubscriptionsIcon className={classes.icon} /> Channel Subscribed
                 </Typography>
-                <Typography >
-                    <SimpleList />
-                </Typography>
-            </CardContent>
-        </Card>
-    );
+                    <Typography >
+                        <SimpleList />
+                    </Typography>
+                </CardContent>
+            </Card>
+        );
+    }
 }
 
 export default Profile;
