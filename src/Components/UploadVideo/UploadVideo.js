@@ -42,37 +42,36 @@ const UploadVideo = () => {
   const history = useHistory();
   const upload = e => {
     e.preventDefault();
-    const _id = "V" + new Date().getTime();
-    console.log(title.current.value);
-    console.log(description.current.value);
-    console.log(duration.current.value);
-    console.log(vimeo.current.value);
-    console.log(thumbnail.current.value);
-
-    axios({
-      method: "post",
-      url: `${baseUrl}/addVideo`,
-      data: {
-        _id: "V" + new Date().getTime(),
-        educator: userData._id,
-        title: title.current.value,
-        description: description.current.value,
-        duration: duration.current.value,
-        video_url: vimeo.current.value,
-        thumbnail_url: thumbnail.current.value,
-        likes: 0,
-        views: 0
-      }
-    }).then(response => {
-      if (response.data && response.status === 200) {
-        setWarning("");
-        let path = `home`;
-        history.push(path);
-      }
-    })
-    .catch(err =>{
-        setWarning("Someting went wrong. Try again later.");
-    })
+    setWarning("");
+    if(userData.role==="Educator"){
+        axios({
+            method: "post",
+            url: `${baseUrl}/addVideo`,
+            data: {
+              _id: "V" + new Date().getTime(),
+              educator: userData._id,
+              title: title.current.value,
+              description: description.current.value,
+              duration: duration.current.value,
+              video_url: vimeo.current.value,
+              thumbnail_url: thumbnail.current.value,
+              likes: 0,
+              views: 0
+            }
+          }).then(response => {
+            if (response.data && response.status === 200) {
+              setWarning("");
+              let path = `home`;
+              history.push(path);
+            }
+          })
+          .catch(err =>{
+              setWarning("Someting went wrong. Try again later.");
+          })
+    }
+    else{
+        setWarning("You have no access to upload a Video");
+    }
   };
   return (
     <Container component="main" maxWidth="xs">

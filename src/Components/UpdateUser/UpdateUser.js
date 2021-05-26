@@ -40,8 +40,8 @@ const UpdateUser = () => {
     e.preventDefault();
     axios({
         method: 'put',
-        url: `${baseUrl}/updateUser/${userData._id}`,
-        data: {
+        url: userData.role  === "Learner"?`${baseUrl}/updateUser/${userData._id}`:`${baseUrl}/updateEducator/${userData._id}`,
+        data: userData.role  === "Learner"?{
             firstName: firstName.current.value,
             lastName: lastName.current.value,
             phNum: contact.current.value,
@@ -49,13 +49,19 @@ const UpdateUser = () => {
             role: userData.role,
             videos_watched: userData.videos_watched,
             subscribed: userData.subscribed
+        }:{
+            firstName: firstName.current.value,
+            lastName: lastName.current.value,
+            phNum: contact.current.value,
+            password: userData.password,
+            role: userData.role,
+            video: userData.video
         }
     }).then(response => {
-      console.log(response.data);
         if (response.data && response.status === 200) {
             setWarning("");
             setSuccessMsg("Details updated Successfully :)")
-            axios.get(`${baseUrl}/findAllUsers/${userData._id}`)
+            axios.get(userData.role  === "Learner"?`${baseUrl}/findAllUsers/${userData._id}`:`${baseUrl}/findAllEducators/${userData._id}`)
             .then((res) => {
                 if(res.data && res.status===200){
                     setUser(res.data);

@@ -56,7 +56,7 @@ const Watch = () => {
     }, []);
     if (!isLoaded) {
         return <div>
-            <img className="loader" src={Loader} />
+            <img className="loader" src={Loader} alt="img"/>
         </div>;
     } else {
         const { description, educator, likes, title, video_url, views, _id } = videoData;

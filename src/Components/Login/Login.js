@@ -45,9 +45,8 @@ const Login = () => {
             if(res.data && res.status===200){
                 if(res.data._id === email.current.value && res.data.password === password.current.value){
                     setWarning("");
-                    console.log(res.data);
                     setUser(res.data);
-                    let path = `home`; 
+                    let path = `profile`; 
                     history.push(path);
                 }
                 else{

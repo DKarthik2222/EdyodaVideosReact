@@ -26,7 +26,7 @@ const Home = () => {
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
         return <div>
-            <img className="loader" src={Loader} />
+            <img className="loader" src={Loader} alt="img"/>
         </div>;
     } else {
         return (

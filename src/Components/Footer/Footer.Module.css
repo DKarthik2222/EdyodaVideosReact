@@ -17,7 +17,7 @@
     -ms-flex-direction: column;
     flex-direction: column;
     -ms-flex-pack: start;
-    justify-content: start;
+    justify-content: flex-start;
 }
 
 .Footer__LeftLinks__3alQQ {
@@ -88,7 +88,7 @@
     -ms-flex-direction: row;
     flex-direction: row;
     -ms-flex-pack: start;
-    justify-content: start;
+    justify-content: flex-start;
     margin-top: 16px;
     margin-bottom: 0;
     -webkit-tap-highlight-color: transparent;
@@ -155,7 +155,7 @@
         -ms-flex-direction: row;
         flex-direction: row;
         -ms-flex-pack: start;
-        justify-content: start;
+        justify-content: flex-start;
     }
     .Footer__Column__1mRXM {
         display: -ms-flexbox;
