@@ -37,10 +37,9 @@ const useStyles = makeStyles({
 const Profile = () => {
     const classes = useStyles();
     const [isLoaded, setIsLoaded] = useState(false);
-
+    const data= getUser();
     useEffect(() => {
         setIsLoaded(true);
-        const data= getUser();
     }, []);
     if (!isLoaded) {
         return <div>
