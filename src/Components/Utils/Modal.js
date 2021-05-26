@@ -8,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import UpdateUser from '../UpdateUser/UpdateUser';
-import { Component } from 'react';
 
 const styles = (theme) => ({
     root: {

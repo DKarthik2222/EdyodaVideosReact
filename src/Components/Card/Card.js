@@ -10,7 +10,8 @@ const Card = (props) => {
     // video_url: "https://k.com"
     // views: "114433"
     // _id: "v01"
-    const { description, author, duration, likes, thumbnail_url, title, video_url, views } = props.prop;
+    const { author, duration, likes, thumbnail_url, title, views } = props.prop;
+    // const { description, author, duration, likes, thumbnail_url, title, video_url, views } = props.prop;
     return (
         <>
             <Link to="/home?{1}" className="cardAnchor" >

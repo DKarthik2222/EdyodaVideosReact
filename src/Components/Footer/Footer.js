@@ -17,10 +17,10 @@ const Footer = () => {
                     <a href="/videos/all">Learning Videos</a>
                     <a href="/channel/all">Educators</a>
                     <a href="/stories">EdYoda Stories</a>
-                    <a href="https://university.edyoda.com/" target="_blank" rel="noopener">University</a>
+                    <a href="https://university.edyoda.com/" target="_blank" rel="noreferrer">University</a>
                 </div><div className={style.Footer__Column__1mRXM}>
                     <h3 className={style.Footer__ColumnHeading__sK9kQ}>FOR ENTERPRISES</h3>
-                    <a href="https://www.zekelabs.com" target="_blank" rel="noopener noreferrer">Train Your Employees</a>
+                    <a href="https://www.zekelabs.com" target="_blank" rel="noreferrer">Train Your Employees</a>
                     <h3 className={style.Footer__ColumnHeading__sK9kQ}>QUICK LINKS</h3
                     ><a href="/learn-and-earn">Learn and Earn</a>
                     <a href="/become-learning-enabler">Become a Learning-Enabler</a>
@@ -31,7 +31,7 @@ const Footer = () => {
                     <h3 className={style.Footer__ColumnHeading__sK9kQ}>CONNECT</h3>
                     <div className={style.Footer__Column__1mRXM}>
                         <a className={style.Footer__AddressText__1CPUN}>2nd Floor #188, Survey No. - 123/1, <br />Incubes Building Next to McDonalds,<br />ITPL Main Rd, Brookefield,<br />Bengaluru, Karnataka-560037,<br />India</a>
-                        <a href="mailto:hello@edyoda.com" target="_blank" rel="noopener noreferrer">
+                        <a href="mailto:hello@edyoda.com" target="_blank" rel="noreferrer">
                             <img src="https://www.edyoda.com/static/media/email-white.e7d51381.svg" alt="EdYoda Email Icon" className={style.Footer__ContactIcon__2TTbB} />hello@edyoda.com
                             </a>
                         <div className={style.Footer__SocialLinks__174hs}>

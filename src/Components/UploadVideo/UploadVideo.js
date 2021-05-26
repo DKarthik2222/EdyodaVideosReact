@@ -42,13 +42,7 @@ const UploadVideo = () => {
   const history = useHistory();
   const upload = e => {
     e.preventDefault();
-    const _id = "V" + new Date().getTime();
-    console.log(title.current.value);
-    console.log(description.current.value);
-    console.log(duration.current.value);
-    console.log(vimeo.current.value);
-    console.log(thumbnail.current.value);
-
+    
     axios({
       method: "post",
       url: `${baseUrl}/addVideo`,

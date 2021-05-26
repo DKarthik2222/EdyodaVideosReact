@@ -32,7 +32,7 @@ const Watch = () => {
     }, []);
     if (!isLoaded) {
         return <div>
-            <img className="loader" src={Loader} />
+            <img className="loader" src={Loader} alt="img"/>
         </div>;
     } else {
         return (

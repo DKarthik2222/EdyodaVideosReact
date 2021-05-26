@@ -26,7 +26,7 @@ const Navbar = () => {
                         </li>
                         <li>
                             <div className="NavigationLink__NavigationLink__1T2UX NavigationLink__Light__1Cx_-">
-                                <a href="https://university.edyoda.com/" rel="noopener" target="_blank">University</a>
+                                <a href="https://university.edyoda.com/" rel="noreferrer" target="_blank">University</a>
                             </div>
                         </li>
                     </ul>
