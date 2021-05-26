@@ -46,38 +46,81 @@ const Register = () => {
     const [warning, setWarning] = useState("");
     const registerUser = e => {
         e.preventDefault();
-        axios.get(`${baseUrl}/findAllUsers/${email.current.value}`)
+        if(role.current.value === "Learner"){
+            if(email.current.value.split('@')[1] !== "edyoda.com"){
+                axios.get(`${baseUrl}/findAllUsers/${email.current.value}`)
+                .then((res) => {
+                    if (res.data && res.status === 200) {
+                        setWarning("User already exists. Please login");
+                    }
+                    else {
+                        axios({
+                            method: 'post',
+                            url: `${baseUrl}/addUser`,
+                            data: {
+                                _id: email.current.value,
+                                firstName: firstName.current.value,
+                                lastName: lastName.current.value,
+                                phNum: contact.current.value,
+                                password: password.current.value,
+                                role: role.current.value,
+                                videos_watched: [],
+                                subscribed: []
+                            }
+                        }).then(response => {
+                            if (response.data && response.status === 200) {
+                                setWarning("");
+                                let path = ``;
+                                history.push(path);
+                            }
+                            else {
+                                setWarning("Someting went wrong. Try again later.");
+                            }
+                        })
+                    }
+                });
+            }
+            else{
+                setWarning("Learner is not allowed to 'edyoda.com'");
+            }
+        }
+        else{
+            axios.get(`${baseUrl}/findAllEducators/${email.current.value}`)
             .then((res) => {
                 if (res.data && res.status === 200) {
-                    setWarning("User already exists. Please login");
+                    setWarning("Educator already exists. Please login");
                 }
                 else {
-                    axios({
-                        method: 'post',
-                        url: `${baseUrl}/addUser`,
-                        data: {
-                            _id: email.current.value,
-                            firstName: firstName.current.value,
-                            lastName: lastName.current.value,
-                            phNum: contact.current.value,
-                            password: password.current.value,
-                            role: role.current.value,
-                            videos_watched: [],
-                            subscribed: []
-                        }
-                    }).then(response => {
-                        console.log(response.data)
-                        if (response.data && res.status === 200) {
-                            setWarning("");
-                            let path = ``;
-                            history.push(path);
-                        }
-                        else {
-                            setWarning("Someting went wrong. Try again later.");
-                        }
-                    })
+                    if(email.current.value.split('@')[1] === "edyoda.com"){
+                        axios({
+                            method: 'post',
+                            url: `${baseUrl}/addEducator`,
+                            data: {
+                                _id: email.current.value,
+                                firstName: firstName.current.value,
+                                lastName: lastName.current.value,
+                                phNum: contact.current.value,
+                                password: password.current.value,
+                                role: role.current.value,
+                                video: []
+                            }
+                        }).then(response => {
+                            if (response.data && response.status === 200) {
+                                setWarning("");
+                                let path = ``;
+                                history.push(path);
+                            }
+                            else {
+                                setWarning("Someting went wrong. Try again later.");
+                            }
+                        })
+                    }
+                    else{
+                        setWarning("Educator domain must like 'edyoda.com'");
+                    }
                 }
             });
+        }
     }
     return (
         <Container component="main" maxWidth="xs">
@@ -162,7 +205,7 @@ const Register = () => {
                             </TextField>
                         </Grid>
                     </Grid>
-                    <p style={{ position: "absolute", color: "red", transform: "translatey(-10px)" }}>{warning}</p>
+                    <p className="warningClass">{warning}</p>
                     <Button
                         type="submit"
                         fullWidth
