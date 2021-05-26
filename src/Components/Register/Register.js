@@ -57,8 +57,8 @@ const Register = () => {
                         url: `${baseUrl}/addUser`,
                         data: {
                             _id: email.current.value,
-                            fullName: firstName.current.value,
-                            userName: lastName.current.value,
+                            firstName: firstName.current.value,
+                            lastName: lastName.current.value,
                             phNum: contact.current.value,
                             password: password.current.value,
                             role: role.current.value,
