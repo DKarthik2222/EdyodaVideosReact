@@ -1,19 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import './Card.css'
+import axios from 'axios';
+import { baseUrl } from '../../CommonResource/Common';
+
 const Card = (props) => {
-    //     description: "this is a react video"
-    // duration: "5:00"
-    // likes: "143"
-    // thumbnail_url: "https://kk.com"
-    // title: "react"
-    // video_url: "https://k.com"
-    // views: "114433"
-    // _id: "v01"
-    const { description, author, duration, likes, thumbnail_url, title, video_url, views } = props.prop;
+    const [author,setAuthor] = useState('');
+    const { description, educator, duration, likes, thumbnail_url, title, video_url, views,_id } = props.prop;
+    const url =`/watch?${_id}`;
+    axios.get( `${baseUrl}/findAllEducators/${educator}`)
+        .then((res) => {
+            let fullName =res.data.firstName+' '+res.data.lastName;
+            setAuthor(fullName)
+        });
     return (
         <>
-            <Link to="/home?{1}" className="cardAnchor" >
+            <Link to={url} className="cardAnchor" >
                 <div className="cardItem">
                     <div className="thumbnailContainer">
                         <img className="videoThumbnail" src={thumbnail_url} alt="video thumbnail" />

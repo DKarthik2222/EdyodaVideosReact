@@ -51,6 +51,7 @@ const UpdateUser = () => {
             subscribed: userData.subscribed
         }
     }).then(response => {
+      console.log(response.data);
         if (response.data && response.status === 200) {
             setWarning("");
             setSuccessMsg("Details updated Successfully :)")
