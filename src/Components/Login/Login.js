@@ -47,7 +47,7 @@ const Login = () => {
                     setWarning("");
                     console.log(res.data);
                     setUser(res.data);
-                    let path = `profile`; 
+                    let path = `home`; 
                     history.push(path);
                 }
                 else{
