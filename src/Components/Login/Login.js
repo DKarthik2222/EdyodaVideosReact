@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom'
+import { User } from '../../CommonResource/Common';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -36,6 +37,7 @@ const Login = () => {
     const password = useRef('')
     const checkDetails = e => {
         e.preventDefault();
+        console.log(User().id);
         console.log(email.current.value)
         console.log(password.current.value)
     }
