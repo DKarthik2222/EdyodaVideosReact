@@ -12,6 +12,7 @@ import Navbar from './Components/Navbar/Navbar';
 import Profile from './Components/Profile/Profile';
 import Register from './Components/Register/Register';
 import UploadVideo from './Components/UploadVideo/UploadVideo';
+import Watch from './Components/Watch/Watch';
 
 const App = () => {
   return (
@@ -36,7 +37,9 @@ const App = () => {
           <Route exact path="/profile">
             <Profile />
           </Route>
-          
+          <Route exact path="/watch">
+            <Watch />
+          </Route>
           </Switch>
         </Router>
       </main>

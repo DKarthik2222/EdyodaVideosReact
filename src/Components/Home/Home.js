@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../Card/Card';
 import './Home.css'
+import Loader from '../../Assets/loader.svg'
 const Home = () => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -23,12 +24,14 @@ const Home = () => {
     if (error) {
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-        return <div>Loading...</div>;
+        return <div>
+            <img className="loader" src={Loader} />
+        </div>;
     } else {
         return (
             <div className="videosWrapper">
                 <h2>Learning Videos</h2>
-                <hr/>
+                <hr />
                 <div className="cardWrapper">
                     {items.map(item => <Card prop={item} />)}
                 </div>

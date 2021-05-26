@@ -58,6 +58,7 @@
 }
 
 .videoMetaData {
+    background-color: #fff;
     width: 100%;
     position: relative;
     min-height: 6em;
@@ -81,7 +82,6 @@
     letter-spacing: normal;
     text-align: left;
     color: #000;
-    overflow: hidden;
 }
 
 .videoOwnerData {
