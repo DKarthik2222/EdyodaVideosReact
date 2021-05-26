@@ -28,19 +28,17 @@ main {
     padding-bottom: 5rem;
 }
 
-.allVideos {
+.videoList {
     width: 25%;
     margin-left: 15%;
+}
+
+.allVideos {
     max-height: 100vh;
     overflow-y: scroll;
     padding: 0 1em;
     box-sizing: border-box;
     position: relative;
-}
-
-.headingTitle {
-    position: sticky;
-    top: 0;
 }
 
 .allVideos .sep {
@@ -178,11 +176,13 @@ main {
     .videoSection {
         width: 100%;
     }
-    .allVideos {
+    .videoList {
         width: 100%;
         margin-left: 0;
         padding: 1em;
         box-sizing: border-box;
+    }
+    .allVideos {
         max-height: 60vh;
     }
 }

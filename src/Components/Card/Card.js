@@ -6,7 +6,7 @@ import { baseUrl } from '../../CommonResource/Common';
 
 const Card = (props) => {
     const [author,setAuthor] = useState('');
-    const { description, educator, duration, likes, thumbnail_url, title, video_url, views,_id } = props.prop;
+    const {  educator, duration, likes, thumbnail_url, title, views,_id } = props.prop;
     const url =`/watch?${_id}`;
     axios.get( `${baseUrl}/findAllEducators/${educator}`)
         .then((res) => {

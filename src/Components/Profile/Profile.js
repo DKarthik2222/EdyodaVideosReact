@@ -38,6 +38,7 @@ const Profile = () => {
   const classes = useStyles();
   const [isLoaded, setIsLoaded] = useState(false);
   let userData = getUser();
+  let {subscribed,videos_watched}=userData;
   useEffect(() => {
     setIsLoaded(true);
   }, []);
@@ -77,13 +78,13 @@ const Profile = () => {
                     <VideoLibraryIcon className={classes.icon} /> Videos Watched
                 </Typography>
                 <Typography>
-                    <SimpleList />
+                    <SimpleList data={subscribed}/>
                 </Typography>
                 <Typography className={classes.key} color="textPrimary" gutterBottom>
                     <SubscriptionsIcon className={classes.icon} /> Channel Subscribed
                 </Typography>
                 <Typography>
-                    <SimpleList />
+                    <SimpleList data={videos_watched}/>
                 </Typography>
             </> : ""}
         </CardContent>
