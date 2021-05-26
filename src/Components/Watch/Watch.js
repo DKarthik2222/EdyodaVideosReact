@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Watch.css'
+import Card from '../Card/Card';
 import Button from '@material-ui/core/Button';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import QueueIcon from '@material-ui/icons/Queue';
@@ -9,12 +10,25 @@ import Loader from '../../Assets/loader.svg'
 
 
 const Watch = () => {
-    const url = "https://player.vimeo.com/video/370492495";
+    const url = "https://www.youtube.com/embed/RGKi6LSPDLU";
     const author = "qaifi";
     const title = "Somethingdsaassssssssssssssssssssssssssssssssssssssssssssssssssss";
+    const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [items, setItems] = useState([]);
     useEffect(() => {
-        setIsLoaded(true);
+        fetch("https://60070aeb3698a80017de27d6.mockapi.io/findAllVideos")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setIsLoaded(true);
+                    setItems(result);
+                },
+                (error) => {
+                    setIsLoaded(true);
+                    setError(error);
+                }
+            )
     }, []);
     if (!isLoaded) {
         return <div>
@@ -49,6 +63,14 @@ const Watch = () => {
                                 startIcon={<QueueIcon />}
                             > Subscribe</Button>
                         </div>
+                    </div>
+                    <div className="allVideos">
+                        {items.map(item => {
+                            return (<div>
+                                <Card prop={item} />
+                                <hr className="sep"/>
+                            </div>)
+                        })}
                     </div>
                 </div>
             </>
