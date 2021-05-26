@@ -1,5 +1,10 @@
+main {
+    padding: 0;
+    margin-top: 4rem;
+}
+
 .mainContainer {
-    padding: 0 1%;
+    padding: 0 3%;
     box-sizing: border-box;
     width: 100%;
     display: flex;
@@ -7,8 +12,15 @@
 
 .Heading {
     width: 100%;
+    padding: 0.5em 1em;
+    margin-bottom: 1em;
     background-color: #15294B;
     color: #fff;
+    box-sizing: border-box;
+}
+
+.Heading>h1 {
+    margin: 0;
 }
 
 .videoSection {
@@ -23,6 +35,12 @@
     overflow-y: scroll;
     padding: 0 1em;
     box-sizing: border-box;
+    position: relative;
+}
+
+.headingTitle {
+    position: sticky;
+    top: 0;
 }
 
 .allVideos .sep {
@@ -117,6 +135,7 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 2px solid #000;
+    margin-bottom: 0.5em !important;
 }
 
 .title>span {
@@ -137,9 +156,11 @@
 }
 
 .videoActions {
-    padding: 2rem 0;
+    padding: 1rem 0;
     display: flex;
     justify-content: space-between;
+    border-bottom: 2px solid #000;
+    margin-bottom: 0.5em;
 }
 
 .author {

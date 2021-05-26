@@ -36,11 +36,6 @@ const Card = (props) => {
                                 <span className="separator"> |</span> <span>{views} views</span>
                             </div>
                         </div>
-                        <div className="videoMetaDataMobile">
-                            <p className="videoLikesCount">{likes} likes</p>
-                            <span className="separator"> |</span>
-                            <p className="videoViewsCount">609 views</p>
-                        </div>
                     </div>
                 </div>
             </Link>
