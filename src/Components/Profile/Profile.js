@@ -37,7 +37,10 @@ const useStyles = makeStyles({
 const Profile = () => {
     const classes = useStyles();
     const [isLoaded, setIsLoaded] = useState(false);
-    const data= getUser();
+    let userData= getUser();
+    // function updatedProfile(){
+    //     userData = getUser();
+    //   }
     useEffect(() => {
         setIsLoaded(true);
     }, []);
@@ -53,13 +56,13 @@ const Profile = () => {
                         User Profile<CustomizedDialogs prop="Register" />
                     </Typography>
                     <Typography className={classes.key} color="textPrimary" gutterBottom>
-                        <PersonIcon className={classes.icon} /> Full Name:
+                        <PersonIcon className={classes.icon} /> Full Name: {userData.firstName} {userData.lastName}
                 </Typography>
                     <Typography className={classes.key} color="textPrimary" gutterBottom>
-                        <EmailIcon className={classes.icon} /> Email: 
+                        <EmailIcon className={classes.icon} /> Email: {userData._id}
                     </Typography>
                     <Typography className={classes.key} color="textPrimary" gutterBottom>
-                        <PhoneIcon className={classes.icon} /> Contact Number:
+                        <PhoneIcon className={classes.icon} /> Contact Number: {userData.phNum}
                 </Typography>
                     <Typography >
 

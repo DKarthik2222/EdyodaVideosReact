@@ -16,3 +16,13 @@ body {
     height: 90vh;
     width: 100%;
 }
+.warningClass{
+    position: absolute;
+    color: red;
+    transform: translateY(-10px);
+}
+.successClass{
+    position: absolute;
+    color: green;
+    transform: translateY(-10px);
+}

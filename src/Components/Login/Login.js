@@ -40,14 +40,14 @@ const Login = () => {
     const history = useHistory();
     const checkDetails = e => {
         e.preventDefault();
-        axios.get(`${baseUrl}/findAllUsers/${email.current.value}`)
+        axios.get( email.current.value.split('@')[1] === "edyoda.com" ? `${baseUrl}/findAllEducators/${email.current.value}` :  `${baseUrl}/findAllUsers/${email.current.value}`)
         .then((res) => {
             if(res.data && res.status===200){
                 if(res.data._id === email.current.value && res.data.password === password.current.value){
                     setWarning("");
                     console.log(res.data);
                     setUser(res.data);
-                    let path = `profile`; 
+                    let path = `home`; 
                     history.push(path);
                 }
                 else{
@@ -55,7 +55,12 @@ const Login = () => {
                 }
             }
             else{
-                setWarning("No user. Please signup");
+                if(email.current.value.split('@')[1] === "edyoda.com"){
+                    setWarning("Educator doesn't exist. Please signup");
+                }
+                else{
+                    setWarning("User doesn't exist. Please signup");
+                }
             }
         });
     }
@@ -89,7 +94,7 @@ const Login = () => {
                         type="password"
                         inputRef={password}
                     />
-                    <p style={{position: "absolute", color: "red", transform: "translatey(-10px)"}}>{warning}</p>
+                    <p className="warningClass">{warning}</p>
                     <Button
                         type="submit"
                         fullWidth
