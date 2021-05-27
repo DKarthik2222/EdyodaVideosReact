@@ -27,9 +27,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const UpdateUser = ({getUser, setUser}) => {
-  let userData = getUser();
+  let userData = getUser;
   function updatedDataFun(){
-    userData = getUser();
+    userData = getUser;
   }
   const firstName = useRef("");
   const lastName = useRef("");
