@@ -2,10 +2,30 @@ import React from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { userLoggedIn, educatorLoggedIn } from "../../globalStore/store";
+import { userLoggedIn, educatorLoggedIn, storeUserData } from "../../globalStore/store";
+import { useHistory } from "react-router-dom";
 
-const Navbar = ({userLoginStatus, educatorLoginStatus, userLogged, educatorLogged}) => {
-   
+const Navbar = ({
+  userLoginStatus,
+  educatorLoginStatus,
+  userLogged,
+  educatorLogged,
+  getUser,
+  setUser
+}) => {
+    console.log(educatorLogged);
+    
+    const history = useHistory();
+  const logout = () => {
+    if (getUser.role === "Learner") {
+      userLoginStatus(false);
+    } else {
+      educatorLoginStatus(false);
+    }
+    setUser("");
+    let path = `login`; 
+    history.push(path);
+  };
   return (
     <nav>
       <div className="Topbar__Topbar__3Rg8U Topbar__Light__1gpMJ">
@@ -52,10 +72,18 @@ const Navbar = ({userLoginStatus, educatorLoginStatus, userLogged, educatorLogge
                 alt="search-icon"
               />
             </li>
-            {userLogged || educatorLogged ? (
-              ""
+            {(userLogged === true) ? (
+              <li className="NavigationLinks__LoginButton__vfcTS NavigationLinks__NonMobileOnly__1lJ7T">
+                <button
+                  id="login-navbar"
+                  className="Button__Button__QI7b2 Button__TextOnlyButtonDark__142qk "
+                  onClick={() => logout()}
+                >
+                  Logout
+                </button>
+              </li>
             ) : (
-                <>
+              <>
                 <li className="NavigationLinks__LoginButton__vfcTS NavigationLinks__NonMobileOnly__1lJ7T">
                   <Link to="/login">
                     <button
@@ -92,13 +120,18 @@ const Navbar = ({userLoginStatus, educatorLoginStatus, userLogged, educatorLogge
   );
 };
 
-const mapStateToProps = (store) => ({
-    userLogged: store?.userLogin,
-    educatorLogged: store?.educatorLogin
-  });
-  const mapDispatchToProps = (dispatch) => ({
-    userLoginStatus: (data) => dispatch(userLoggedIn(data)),
-    educatorLoginStatus: (data) => dispatch(educatorLoggedIn(data)),
-  });
+const mapStateToProps = store => ({
+  userLogged: store?.userLogin,
+  educatorLogged: store?.educatorLogin,
+  getUser: store?.userData
+});
+const mapDispatchToProps = dispatch => ({
+  userLoginStatus: data => dispatch(userLoggedIn(data)),
+  educatorLoginStatus: data => dispatch(educatorLoggedIn(data)),
+  setUser: data => dispatch(storeUserData(data))
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Navbar);
