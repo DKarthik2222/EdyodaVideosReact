@@ -12,9 +12,7 @@ const Navbar = ({
   educatorLogged,
   getUser,
   setUser
-}) => {
-    console.log(educatorLogged);
-    
+}) => {    
     const history = useHistory();
   const logout = () => {
     if (getUser.role === "Learner") {
@@ -22,8 +20,8 @@ const Navbar = ({
     } else {
       educatorLoginStatus(false);
     }
-    setUser("");
-    let path = `login`; 
+    setUser({});
+    let path = `login`;
     history.push(path);
   };
   return (
@@ -72,7 +70,7 @@ const Navbar = ({
                 alt="search-icon"
               />
             </li>
-            {(userLogged === true) ? (
+            {(userLogged == "true") || (educatorLogged == "true") ? (
               <li className="NavigationLinks__LoginButton__vfcTS NavigationLinks__NonMobileOnly__1lJ7T">
                 <button
                   id="login-navbar"
