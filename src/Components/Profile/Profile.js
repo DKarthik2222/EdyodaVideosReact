@@ -38,7 +38,7 @@ const useStyles = makeStyles({
 const Profile = ({getUser}) => {
   const classes = useStyles();
   const [isLoaded, setIsLoaded] = useState(false);
-  let userData = getUser();
+  let userData = getUser;
   let {subscribed,videos_watched}=userData;
   useEffect(() => {
     setIsLoaded(true);
