@@ -62,7 +62,7 @@ const UploadVideo = ({getUser}) => {
           }).then(response => {
             if (response.data && response.status === 200) {
               setWarning("");
-              let path = `home`;
+              let path = ``;
               history.push(path);
             }
           })
