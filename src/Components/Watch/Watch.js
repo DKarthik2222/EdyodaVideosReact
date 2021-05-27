@@ -29,15 +29,15 @@ const Watch = ({ getUser, setUser,loginStatus }) => {
     location.push('/login');
   }
   else{
-  if (getUser.videos_liked?.includes(res[1]) && !like) {
+  if (getUser.videos_liked.includes(res[1]) && !like) {
     setLike(true);
   }
-  if (getUser.subscribed?.includes(videoData.educator) && !subscribedStatus) {
+  if (getUser.subscribed.includes(videoData.educator) && !subscribedStatus) {
     setSubscribedStatus(true);
   }
 }
   useEffect(() => {//component did mount
-    
+    if(loginStatus=="true"){
     if (!getUser.videos_watched.includes(res[1])) {
         getUser.videos_watched.push(res[1]);
         userApiUpdate();
@@ -70,6 +70,7 @@ const Watch = ({ getUser, setUser,loginStatus }) => {
       }
     );
     axios.get(`${baseUrl}/findAllVideos`).then(({ data }) => setAllVideo(data));
+    }
   }, []);
   const likeClicked = () => {
     if (getUser.videos_liked.includes(res[1])) {
