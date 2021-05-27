@@ -30,8 +30,11 @@ const Watch = ({ getUser, setUser }) => {
     setSubscribedStatus(true);
   }
   useEffect(() => {//component did mount
-
-    let { videos_watched, subscribed } = getUser;
+    if (!getUser.videos_watched.includes(res[1])) {
+        getUser.videos_watched.push(res[1]);
+        userApiUpdate();
+        }
+    let { subscribed } = getUser;
     axios.get(`${baseUrl}/findAllVideos/${res[1]}`).then(
       ({ data }) => {
         subscribed.includes(data._id)
@@ -131,7 +134,7 @@ const Watch = ({ getUser, setUser }) => {
       </div>
     );
   } else {
-    const { description, likes, title, video_url, views, _id } = videoData;
+    const { description, likes, title, video_url, views } = videoData;
     let time = res[1].split("v")[1];
     time = parseInt(time);
     let day = new Date(time).getDate();
