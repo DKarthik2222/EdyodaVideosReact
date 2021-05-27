@@ -13,15 +13,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SimpleList = (prop) => {
-    // catch data from props and map her in listitem text
     const classes = useStyles();
-
+    console.log(prop.data);
     return (
         <div className={classes.root}>
             <List component="nav" aria-label="secondary mailbox folders">
-                <ListItem button>
+                <ListItem dense="true" button>
                     <ListItemText>
-                        something
+                        {prop.data }
                     </ListItemText>
                 </ListItem>
             </List>

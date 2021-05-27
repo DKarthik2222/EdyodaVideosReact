@@ -6,7 +6,7 @@ import { baseUrl } from "../CommonResource/Common";
 export const callAllVideos = () => {
     return (dispatch) => {
       axios
-        .get(`${baseUrl}`)
+        .get(`${baseUrl}/findAllVideos`)
         .then((res) => {
           dispatch({
             type: "ALL_VIDEOS",

@@ -11,8 +11,9 @@ import { baseUrl } from "../../CommonResource/Common";
 import axios from "axios";
 import { connect } from "react-redux";
 import { storeUserData } from "../../globalStore/store";
+import { useHistory } from "react-router";
 
-const Watch = ({ getUser, setUser }) => {
+const Watch = ({ getUser, setUser,loginStatus }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [videoData, setVideoData] = useState({});
   const [allVideo, setAllVideo] = useState([]);
@@ -23,13 +24,20 @@ const Watch = ({ getUser, setUser }) => {
   const [subscribe, setSubscribe] = useState("");
   const id = window.location.search;
   const res = id.split("?");
-  if (getUser.videos_liked.includes(res[1]) && !like) {
+  const location = useHistory();
+  if(loginStatus!="true"){
+    location.push('/login');
+  }
+  else{
+  if (getUser.videos_liked?.includes(res[1]) && !like) {
     setLike(true);
   }
-  if (getUser.subscribed.includes(videoData.educator) && !subscribedStatus) {
+  if (getUser.subscribed?.includes(videoData.educator) && !subscribedStatus) {
     setSubscribedStatus(true);
   }
+}
   useEffect(() => {//component did mount
+    
     if (!getUser.videos_watched.includes(res[1])) {
         getUser.videos_watched.push(res[1]);
         userApiUpdate();
@@ -40,7 +48,6 @@ const Watch = ({ getUser, setUser }) => {
         subscribed.includes(data._id)
           ? setSubscribedStatus(true)
           : setSubscribedStatus(false);
-        // setVideoData(data);
         let tempvData=data
         tempvData.views++;
         setVideoData(tempvData);
@@ -221,7 +228,8 @@ const Watch = ({ getUser, setUser }) => {
 };
 
 const mapStateToProps = store => ({
-  getUser: store?.userData
+  getUser: store?.userData,
+  loginStatus: store?.userLogin
 });
 const mapDispatchToProps = dispatch => ({
   setUser: data => dispatch(storeUserData(data))

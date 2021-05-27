@@ -11,8 +11,10 @@ import SubscriptionsIcon from "@material-ui/icons/Subscriptions";
 import CustomizedDialogs from "../Utils/Modal";
 import SimpleList from "../Utils/List";
 import Loader from "../../Assets/loader.svg";
-import { storeUserData } from "../../globalStore/store";
+import { callAllVideos, storeUserData } from "../../globalStore/store";
 import { connect } from "react-redux";
+import axios from "axios";
+import { baseUrl } from "../../CommonResource/Common";
 
 const useStyles = makeStyles({
   root: {
@@ -35,14 +37,30 @@ const useStyles = makeStyles({
     marginRight: "5px"
   }
 });
-const Profile = ({getUser}) => {
+const Profile = ({ getUser, callVideos, getVideos }) => {
   const classes = useStyles();
   const [isLoaded, setIsLoaded] = useState(false);
-  let userData = getUser;
-  let {subscribed,videos_watched}=userData;
+  const userData = getUser;
+  const { subscribed, videos_watched } = userData;
+  const allVideo = getVideos;
+  const [allAuthor, setAllAuthor] = useState(null);
   useEffect(() => {
     setIsLoaded(true);
+    callVideos();
+    if (getVideos) {
+      axios.get(`${baseUrl}/findAllEducators`)
+        .then((res) => {
+          setAllAuthor(res.data);
+        }
+        );
+    }
   }, []);
+    let subscribedChannel= (allAuthor?.filter((item) => {
+      return subscribed.includes(item._id)
+    }));
+    let videosWatched= (allVideo?.filter((item) => {
+      return videos_watched.includes(item._id)
+    }));
   if (!isLoaded) {
     return (
       <div>
@@ -71,20 +89,26 @@ const Profile = ({getUser}) => {
             <PhoneIcon className={classes.icon} /> Contact Number: {userData.phNum}
           </Typography>
           <Typography></Typography>
-          {userData.role === "Learner" ? 
+          {userData.role === "Learner" ?
             <>
-                <Typography className={classes.key} color="textPrimary" gutterBottom>
-                    <VideoLibraryIcon className={classes.icon} /> Videos Watched
+              <Typography className={classes.key} color="textPrimary" gutterBottom>
+                <VideoLibraryIcon className={classes.icon} /> Videos Watched
                 </Typography>
-                <Typography>
-                    <SimpleList data={subscribed}/>
+              <Typography>
+                {videosWatched?.map((item)=>
+                 <SimpleList data={item.title} key={item.title} />
+                )}
+                
+              </Typography>
+              <Typography className={classes.key} color="textPrimary" gutterBottom>
+                <SubscriptionsIcon className={classes.icon} /> Channel Subscribed
                 </Typography>
-                <Typography className={classes.key} color="textPrimary" gutterBottom>
-                    <SubscriptionsIcon className={classes.icon} /> Channel Subscribed
-                </Typography>
-                <Typography>
-                    <SimpleList data={videos_watched}/>
-                </Typography>
+              <Typography>
+                {subscribedChannel?.map(
+                  (item) => <SimpleList data={item.firstName+" "+item.lastName} key={item._id}/>
+                )}
+
+              </Typography>
             </> : ""}
         </CardContent>
       </Card>
@@ -93,10 +117,13 @@ const Profile = ({getUser}) => {
 };
 
 const mapStateToProps = (store) => ({
-  getUser: store?.userData
+  getUser: store?.userData,
+  getVideos: store?.allVideoStore
 });
 const mapDispatchToProps = (dispatch) => ({
-  userDataStore: (data) => dispatch(storeUserData(data))
+  userDataStore: (data) => dispatch(storeUserData(data)),
+  callVideos: (data) => dispatch(callAllVideos(data))
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
