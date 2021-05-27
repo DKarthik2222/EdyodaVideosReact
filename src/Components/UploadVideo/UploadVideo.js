@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const UploadVideo = ({getUser}) => {
-  const userData = getUser();
+  const userData = getUser;
   const title = useRef("");
   const description = useRef("");
   const duration = useRef("");

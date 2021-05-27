@@ -74,6 +74,7 @@ const Navbar = ({
     };
     const history = useHistory();
     const logout = () => {
+        handleResponsiveClose();
         if (getUser.role === "Learner") {
             userLoginStatus(false);
         } else {
@@ -228,7 +229,7 @@ const Navbar = ({
                                                 :
                                                 ""
                                         }
-                                        <StyledMenuItem onClick={handleResponsiveClose, logout}>
+                                        <StyledMenuItem onClick={logout}>
                                             <ListItemIcon>
                                                 <ExitToAppIcon fontSize="small" />
                                             </ListItemIcon>

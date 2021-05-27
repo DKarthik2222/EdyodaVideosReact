@@ -37,30 +37,36 @@ const useStyles = makeStyles({
     marginRight: "5px"
   }
 });
-const Profile = ({ getUser, callVideos, getVideos }) => {
+const Profile = ({ getUser, callVideos, getVideos, loginStatus }) => {
   const classes = useStyles();
   const [isLoaded, setIsLoaded] = useState(false);
   const userData = getUser;
-  const { subscribed, videos_watched } = userData;
   const allVideo = getVideos;
   const [allAuthor, setAllAuthor] = useState(null);
+  const { subscribed, videos_watched } = userData;
   useEffect(() => {
     setIsLoaded(true);
-    callVideos();
-    if (getVideos) {
-      axios.get(`${baseUrl}/findAllEducators`)
-        .then((res) => {
-          setAllAuthor(res.data);
-        }
-        );
+    if(loginStatus=="true"){
+      callVideos();
+      if (getVideos) {
+        axios.get(`${baseUrl}/findAllEducators`)
+          .then((res) => {
+            setAllAuthor(res.data);
+          }
+          );
+      }
     }
   }, []);
-    let subscribedChannel= (allAuthor?.filter((item) => {
+  let videosWatched;
+  let subscribedChannel;
+  if(loginStatus=="true"){
+    subscribedChannel= (allAuthor?.filter((item) => {
       return subscribed.includes(item._id)
     }));
-    let videosWatched= (allVideo?.filter((item) => {
+    videosWatched= (allVideo?.filter((item) => {
       return videos_watched.includes(item._id)
     }));
+  }
   if (!isLoaded) {
     return (
       <div>
@@ -118,7 +124,8 @@ const Profile = ({ getUser, callVideos, getVideos }) => {
 
 const mapStateToProps = (store) => ({
   getUser: store?.userData,
-  getVideos: store?.allVideoStore
+  getVideos: store?.allVideoStore,
+  loginStatus: store?.userLogin
 });
 const mapDispatchToProps = (dispatch) => ({
   userDataStore: (data) => dispatch(storeUserData(data)),
