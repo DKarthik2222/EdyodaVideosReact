@@ -3,11 +3,19 @@ import { Link } from 'react-router-dom';
 import './Card.css'
 import axios from 'axios';
 import { baseUrl } from '../../CommonResource/Common';
-
+import { connect } from "react-redux";
+ 
 const Card = (props) => {
+    const {isEducator}=props;
     const [author,setAuthor] = useState('');
     const {  educator, duration, likes, thumbnail_url, title, views,_id } = props.prop;
-    const url =`/watch?${_id}`;
+    let url="";
+    if(isEducator == "true"){
+        url="";
+    }
+    else{
+        url=`/watch?${_id}`;
+    }
     axios.get( `${baseUrl}/findAllEducators/${educator}`)
         .then((res) => {
             let fullName =res.data.firstName+' '+res.data.lastName;
@@ -42,5 +50,9 @@ const Card = (props) => {
         </>
     );
 }
-
-export default Card;
+ 
+const mapStateToProps = (store) => ({
+    isEducator: store?.educatorLogin
+  });
+  
+  export default connect(mapStateToProps, "")(Card);
