@@ -7,10 +7,11 @@ import QueueIcon from '@material-ui/icons/Queue';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Typography } from '@material-ui/core';
 import Loader from '../../Assets/loader.svg'
-import { baseUrl, getUser } from '../../CommonResource/Common';
+import { baseUrl } from '../../CommonResource/Common';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
-const Watch = () => {
+const Watch = ({getUser}) => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [videoData, setVideoData] = useState({});
     const [allVideo, setAllVideo] = useState([]);
@@ -115,4 +116,8 @@ const Watch = () => {
     }
 }
 
-export default Watch;
+const mapStateToProps = (store) => ({
+    getUser: store?.userData
+  });
+  
+  export default connect(mapStateToProps, "")(Watch);

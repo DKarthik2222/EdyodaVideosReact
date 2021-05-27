@@ -10,8 +10,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom'
 import axios from 'axios';
-import { setUser, baseUrl } from '../../CommonResource/Common';
+import { baseUrl } from '../../CommonResource/Common';
 import { useHistory } from "react-router-dom";
+import { userLoggedIn, educatorLoggedIn, storeUserData } from '../../globalStore/store';
+import { connect } from 'react-redux';
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -32,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Login = () => {
+const Login = ({userLoginStatus, educatorLoginStatus, setUser}) => {
     const classes = useStyles();
     const email = useRef('')
     const password = useRef('')
@@ -45,8 +47,14 @@ const Login = () => {
             if(res.data && res.status===200){
                 if(res.data._id === email.current.value && res.data.password === password.current.value){
                     setWarning("");
+                    if(res.data.role === "Learner"){
+                        userLoginStatus(true);
+                    }
+                    else{
+                        educatorLoginStatus(true);
+                    }
                     setUser(res.data);
-                    let path = `profile`; 
+                    let path = ``; 
                     history.push(path);
                 }
                 else{
@@ -116,4 +124,11 @@ const Login = () => {
         </Container>
     );
 }
-export default Login;
+
+  const mapDispatchToProps = (dispatch) => ({
+    userLoginStatus: (data) => dispatch(userLoggedIn(data)),
+    educatorLoginStatus: (data) => dispatch(educatorLoggedIn(data)),
+    setUser: (data) => dispatch(storeUserData(data))
+  });
+
+export default connect("", mapDispatchToProps)(Login);

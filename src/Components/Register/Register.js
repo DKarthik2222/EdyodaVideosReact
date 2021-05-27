@@ -64,6 +64,7 @@ const Register = () => {
                                 phNum: contact.current.value,
                                 password: password.current.value,
                                 role: role.current.value,
+                                videos_liked: [],
                                 videos_watched: [],
                                 subscribed: []
                             }
@@ -107,7 +108,7 @@ const Register = () => {
                         }).then(response => {
                             if (response.data && response.status === 200) {
                                 setWarning("");
-                                let path = ``;
+                                let path = `login`;
                                 history.push(path);
                             }
                             else {

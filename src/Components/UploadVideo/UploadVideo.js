@@ -6,9 +6,10 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { getUser, baseUrl } from "../../CommonResource/Common";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { baseUrl } from "../../CommonResource/Common";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const UploadVideo = () => {
+const UploadVideo = ({getUser}) => {
   const userData = getUser();
   const title = useRef("");
   const description = useRef("");
@@ -146,4 +147,9 @@ const UploadVideo = () => {
     </Container>
   );
 };
-export default UploadVideo;
+
+const mapStateToProps = (store) => ({
+  getUser: store?.userData
+});
+
+export default connect(mapStateToProps, "")(UploadVideo);

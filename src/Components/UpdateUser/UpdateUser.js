@@ -5,8 +5,10 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { getUser, baseUrl, setUser } from "../../CommonResource/Common";
+import { baseUrl } from "../../CommonResource/Common";
 import axios from "axios";
+import { storeUserData } from "../../globalStore/store";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -24,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const UpdateUser = () => {
+const UpdateUser = ({getUser, setUser}) => {
   let userData = getUser();
   function updatedDataFun(){
     userData = getUser();
@@ -47,6 +49,7 @@ const UpdateUser = () => {
             phNum: contact.current.value,
             password: userData.password,
             role: userData.role,
+            videos_liked: userData.videos_liked,
             videos_watched: userData.videos_watched,
             subscribed: userData.subscribed
         }:{
@@ -157,4 +160,12 @@ const UpdateUser = () => {
     </Container>
   );
 };
-export default UpdateUser;
+
+const mapStateToProps = (store) => ({
+  getUser: store?.userData
+});
+const mapDispatchToProps = (dispatch) => ({
+  setUser: (data) => dispatch(storeUserData(data))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateUser);

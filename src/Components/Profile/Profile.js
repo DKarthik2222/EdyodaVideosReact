@@ -11,7 +11,8 @@ import SubscriptionsIcon from "@material-ui/icons/Subscriptions";
 import CustomizedDialogs from "../Utils/Modal";
 import SimpleList from "../Utils/List";
 import Loader from "../../Assets/loader.svg";
-import { getUser } from "../../CommonResource/Common";
+import { storeUserData } from "../../globalStore/store";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles({
   root: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles({
     marginRight: "5px"
   }
 });
-const Profile = () => {
+const Profile = ({getUser}) => {
   const classes = useStyles();
   const [isLoaded, setIsLoaded] = useState(false);
   let userData = getUser();
@@ -61,15 +62,13 @@ const Profile = () => {
             <CustomizedDialogs prop="Register" />
           </Typography>
           <Typography className={classes.key} color="textPrimary" gutterBottom>
-            <PersonIcon className={classes.icon} /> Full Name:{" "}
-            {userData.firstName} {userData.lastName}
+            <PersonIcon className={classes.icon} /> Full Name: {userData.firstName} {userData.lastName}
           </Typography>
           <Typography className={classes.key} color="textPrimary" gutterBottom>
             <EmailIcon className={classes.icon} /> Email: {userData._id}
           </Typography>
           <Typography className={classes.key} color="textPrimary" gutterBottom>
-            <PhoneIcon className={classes.icon} /> Contact Number:{" "}
-            {userData.phNum}
+            <PhoneIcon className={classes.icon} /> Contact Number: {userData.phNum}
           </Typography>
           <Typography></Typography>
           {userData.role === "Learner" ? 
@@ -93,4 +92,11 @@ const Profile = () => {
   }
 };
 
-export default Profile;
+const mapStateToProps = (store) => ({
+  getUser: store?.userData
+});
+const mapDispatchToProps = (dispatch) => ({
+  userDataStore: (data) => dispatch(storeUserData(data))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
