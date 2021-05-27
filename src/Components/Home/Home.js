@@ -3,7 +3,14 @@ import Card from '../Card/Card';
 import './Home.css'
 import Loader from '../../Assets/loader.svg'
 import { baseUrl } from '../../CommonResource/Common';
-const Home = () => {
+import { callAllVideos } from '../../globalStore/store';
+import { connect } from 'react-redux';
+const Home = ({callVideos}) => {
+
+    useEffect(() => {
+        callVideos()
+    },[])
+
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
@@ -41,4 +48,8 @@ const Home = () => {
     }
 }
 
-export default Home;
+const mapDispatchToProps = (dispatch) => ({
+    callVideos: (data) => dispatch(callAllVideos(data))
+  });
+  
+  export default connect("", mapDispatchToProps)(Home);
