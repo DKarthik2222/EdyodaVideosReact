@@ -47,8 +47,8 @@ const Register = () => {
     const registerUser = e => {
         e.preventDefault();
         if(role.current.value === "Learner"){
-            if(email.current.value.split('@')[1] !== "edyoda.com"){
-                axios.get(`${baseUrl}/findAllUsers/${email.current.value}`)
+            if(email.current.value.toLowerCase().split('@')[1] !== "edyoda.com"){
+                axios.get(`${baseUrl}/findAllUsers/${email.current.value.toLowerCase()}`)
                 .then((res) => {
                     if (res.data && res.status === 200) {
                         setWarning("User already exists. Please login");
@@ -58,7 +58,7 @@ const Register = () => {
                             method: 'post',
                             url: `${baseUrl}/addUser`,
                             data: {
-                                _id: email.current.value,
+                                _id: email.current.value.toLowerCase(),
                                 firstName: firstName.current.value,
                                 lastName: lastName.current.value,
                                 phNum: contact.current.value,
@@ -86,18 +86,18 @@ const Register = () => {
             }
         }
         else{
-            axios.get(`${baseUrl}/findAllEducators/${email.current.value}`)
+            axios.get(`${baseUrl}/findAllEducators/${email.current.value.toLowerCase()}`)
             .then((res) => {
                 if (res.data && res.status === 200) {
                     setWarning("Educator already exists. Please login");
                 }
                 else {
-                    if(email.current.value.split('@')[1] === "edyoda.com"){
+                    if(email.current.value.toLowerCase().split('@')[1] === "edyoda.com"){
                         axios({
                             method: 'post',
                             url: `${baseUrl}/addEducator`,
                             data: {
-                                _id: email.current.value,
+                                _id: email.current.value.toLowerCase(),
                                 firstName: firstName.current.value,
                                 lastName: lastName.current.value,
                                 phNum: contact.current.value,

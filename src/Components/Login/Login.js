@@ -42,10 +42,10 @@ const Login = ({userLoginStatus, educatorLoginStatus, setUser}) => {
     const history = useHistory();
     const checkDetails = e => {
         e.preventDefault();
-        axios.get( email.current.value.split('@')[1] === "edyoda.com" ? `${baseUrl}/findAllEducators/${email.current.value}` :  `${baseUrl}/findAllUsers/${email.current.value}`)
+        axios.get( email.current.value.toLowerCase().split('@')[1] === "edyoda.com" ? `${baseUrl}/findAllEducators/${email.current.value.toLowerCase()}` :  `${baseUrl}/findAllUsers/${email.current.value.toLowerCase()}`)
         .then((res) => {
             if(res.data && res.status===200){
-                if(res.data._id === email.current.value && res.data.password === password.current.value){
+                if(res.data._id === email.current.value.toLowerCase() && res.data.password === password.current.value){
                     setWarning("");
                     if(res.data.role === "Learner"){
                         userLoginStatus(true);
@@ -62,7 +62,7 @@ const Login = ({userLoginStatus, educatorLoginStatus, setUser}) => {
                 }
             }
             else{
-                if(email.current.value.split('@')[1] === "edyoda.com"){
+                if(email.current.value.toLowerCase().split('@')[1] === "edyoda.com"){
                     setWarning("Educator doesn't exist. Please signup");
                 }
                 else{

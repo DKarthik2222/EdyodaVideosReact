@@ -9,6 +9,7 @@ import Profile from "./Components/Profile/Profile";
 import Register from "./Components/Register/Register";
 import UploadVideo from "./Components/UploadVideo/UploadVideo";
 import Watch from "./Components/Watch/Watch";
+import Redirect from "./Components/Redirect/Redirect"
 
 const App = () => {
   return (
@@ -36,6 +37,9 @@ const App = () => {
             </Route>
             <Route exact path="/watch">
               <Watch />
+            </Route>
+            <Route exact path="/redirect">
+              <Redirect />
             </Route>
           </Switch>
         </main>

@@ -22,8 +22,8 @@ const Watch = ({ getUser, setUser,loginStatus }) => {
   const [likeBtn, setLikeBtn] = useState("");
   const [subscribedStatus, setSubscribedStatus] = useState(false);
   const [subscribe, setSubscribe] = useState("");
-  const id = window.location.search;
-  const res = id.split("?");
+  let id = window.location.search;
+  let res = id.split("?");
   const location = useHistory();
   if(loginStatus!="true"){
     location.push('/login');
@@ -35,6 +35,11 @@ const Watch = ({ getUser, setUser,loginStatus }) => {
   if (getUser.subscribed.includes(videoData.educator) && !subscribedStatus) {
     setSubscribedStatus(true);
   }
+}
+const redirect=()=>{
+  id = window.location.search;
+  res = id.split("?");
+  location.push(`/redirect?${res[1]}`);
 }
   useEffect(() => {//component did mount
     if(loginStatus=="true"){
@@ -214,7 +219,7 @@ const Watch = ({ getUser, setUser,loginStatus }) => {
             <div className="allVideos">
               {allVideo.map(item => {
                 return (
-                  <div>
+                  <div onClick={redirect}>
                     <Card prop={item} key={item._id} />
                     <hr className="sep" />
                   </div>
