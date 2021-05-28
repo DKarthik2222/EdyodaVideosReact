@@ -87,11 +87,11 @@ const Navbar = ({
     return (
         <nav>
             <div className="Topbar__Topbar__3Rg8U Topbar__Light__1gpMJ">
-                <a className="Topbar__Logo__lSAmV " href="/">
+                <Link className="Topbar__Logo__lSAmV " to="/">
                     <div>
                         <div className="Logo__Logo__2isxd Logo__Light__2EwPM">EDYODA</div>
                     </div>
-                </a>
+                </Link>
                 <div className="NavigationLinks__NavigationLinks__1jolz NavigationLinks__Light__3h2pd">
                     <ul className="NavigationLinks__NonMobileOnly__1lJ7T NavigationLinks__NavigationLink__2hqo3">
                         <li>
