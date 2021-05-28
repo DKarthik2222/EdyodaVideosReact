@@ -82,7 +82,7 @@ const Register = () => {
                 });
             }
             else{
-                setWarning("Learner is not allowed to 'edyoda.com'");
+                setWarning("Learner is not allowed to use 'edyoda.com'");
             }
         }
         else{
@@ -117,7 +117,7 @@ const Register = () => {
                         })
                     }
                     else{
-                        setWarning("Educator domain must like 'edyoda.com'");
+                        setWarning("Educator domain must be 'edyoda.com'");
                     }
                 }
             });

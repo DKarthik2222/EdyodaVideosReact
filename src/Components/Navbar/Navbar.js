@@ -239,7 +239,7 @@ const Navbar = ({
                                     :
                                     (<div>
                                         <StyledMenuItem onClick={handleResponsiveClose}>
-                                            <Link className="redirectAnchor" to="/profile">
+                                            <Link className="redirectAnchor" to="/login">
                                                 <ListItemIcon>
                                                     <VpnKeyIcon fontSize="small" />
                                                 </ListItemIcon>
@@ -247,7 +247,7 @@ const Navbar = ({
                                             </Link>
                                         </StyledMenuItem>
                                         <StyledMenuItem onClick={handleResponsiveClose}>
-                                            <Link className="redirectAnchor" to="/profile">
+                                            <Link className="redirectAnchor" to="/signup">
                                                 <ListItemIcon>
                                                     <PersonAddIcon fontSize="small" />
                                                 </ListItemIcon>
